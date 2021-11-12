@@ -2,29 +2,32 @@
 
 set -e
 
-resourceGroupName="diagnostics-activity-logs"
+logAnalyticWorkspaceSubscriptionId="<<fill_in>>"
+logAnalyticWorkspaceResourceGroupName="diagnostics-activity-logs"
+logAnalyticWorkspaceName="diagnostics-activity-logs"
+diagnosticSettingsName="diagnostics-activity-logs"
 location="westeurope"
 deploymentName="$(date +%Y%m%d_%H%M%S)-Diagnostics-ActivityLogs"
 
-az account set --subscription $subscription
+az account set --subscription $logAnalyticWorkspaceSubscriptionId
 
-az group create --name $resourceGroupName --location $location
+az group create --name $logAnalyticWorkspaceResourceGroupName --location $location
 
 az deployment group create \
-   --resource-group $resourceGroupName \
+   --resource-group $logAnalyticWorkspaceResourceGroupName \
    --name $deploymentName \
    --mode Complete \
    --template-file logAnalyticsWorkspace.json \
    --parameters \
-       logAnalyticsWorkspaceName=$resourceGroupName \
+       logAnalyticsWorkspaceName=$logAnalyticWorkspaceName \
        location=$location
-
-logAnalyticWorkspaceId=$(az monitor log-analytics workspace show --resource-group $resourceGroupName --workspace-name $resourceGroupName --output tsv --query "id")
 
 az deployment sub create \
    --location $location \
    --name $deploymentName \
    --template-file diagnostics.json \
    --parameters \
-       diagnosticSettingsName=$resourceGroupName \
-       logAnalyticWorkspaceId=$logAnalyticWorkspaceId
+       diagnosticSettingsName=$diagnosticSettingsName \
+       logAnalyticWorkspaceSubscriptionId=$logAnalyticWorkspaceSubscriptionId \
+       logAnalyticWorkspaceResourceGroupName=$logAnalyticWorkspaceResourceGroupName \
+       logAnalyticWorkspaceName=$logAnalyticWorkspaceName

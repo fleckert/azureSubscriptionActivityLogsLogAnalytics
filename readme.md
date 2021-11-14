@@ -11,3 +11,14 @@ Kind of nice is the [pricing model](https://docs.microsoft.com/en-us/azure/azure
 > *Some data types are free from data ingestion charges altogether, for example the AzureActivity, Heartbeat, Usage and Operation types.*
 
 The files in this repository are my 'opinionated' take on [this](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings).
+
+## Usage
+- `az login`
+- `deploy.sh`
+
+## what it does...
+this creates a resourceGroup `logAnalyticWorkspaceResourceGroupName` in `location` with a Log Analytics Workspace `logAnalyticWorkspaceName`.
+
+! please check if the deploymentMode `complete` meets your situation !
+
+all categories of the Activity Log is send to this Log Analytics Workspace

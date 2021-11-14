@@ -2,10 +2,9 @@
 
 set -e
 
-logAnalyticWorkspaceSubscriptionId="<<fill_in>>"
 logAnalyticWorkspaceResourceGroupName="diagnostics-activity-logs"
-logAnalyticWorkspaceName="diagnostics-activity-logs"
-diagnosticSettingsName="diagnostics-activity-logs"
+logAnalyticWorkspaceName="activity-logs"
+diagnosticSettingsName="la-$logAnalyticWorkspaceName"
 location="westeurope"
 deploymentName="$(date +%Y%m%d_%H%M%S)-Diagnostics-ActivityLogs"
 

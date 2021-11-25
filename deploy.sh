@@ -8,7 +8,7 @@ diagnosticSettingsName="la-$logAnalyticWorkspaceName"
 location="westeurope"
 deploymentName="$(date +%Y%m%d_%H%M%S)-Diagnostics-ActivityLogs"
 
-az account set --subscription $logAnalyticWorkspaceSubscriptionId
+logAnalyticWorkspaceSubscriptionId=$(az account show --output tsv --query id)
 
 az group create --name $logAnalyticWorkspaceResourceGroupName --location $location
 
